@@ -22,5 +22,5 @@
 - Bus Stop Disruptions
     - https://api.tfl.gov.uk/StopPoint/Mode/bus/Disruption
 - Live BusStop Predicitons
-    - https://api.tfl.gov.uk/StopPoint/\<stopID\>/Arrivals
+    - https://api.tfl.gov.uk/StopPoint/<stopID\>/Arrivals
     - https://api.tfl.gov.uk/StopPoint/490008660N/Arrivals
