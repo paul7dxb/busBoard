@@ -13,14 +13,13 @@
 - StopPoint API
     - https://api-portal.tfl.gov.uk/api-details#api=StopPoint&operation=Forward_Proxy
 
-# Random Notes
-
-- Softwire Stop 490008660N
-
 ## API Calls
 
-- Bus Stop Disruptions
+- Bus Stop Disruptions:
     - https://api.tfl.gov.uk/StopPoint/Mode/bus/Disruption
-- Live BusStop Predicitons
-    - https://api.tfl.gov.uk/StopPoint/<stopID\>/Arrivals
-    - https://api.tfl.gov.uk/StopPoint/490008660N/Arrivals
+- Live BusStop Predicitons:
+    - https://api.tfl.gov.uk/StopPoint/{stopID}/Arrivals
+    - Example London Stop ID: 490008660N
+
+- Location data from postcode:
+    - http://api.postcodes.io/postcodes/{postcode}
