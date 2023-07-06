@@ -66,6 +66,7 @@ function getUserInput() {
 	return readline.prompt();
 }
 
+// JP joining here!!
 
 
 async function getLocalArrivals() {
