@@ -2,52 +2,38 @@
 const readline = require("readline-sync");
 
 // Fetching Data
-
-const postcodeApiUrl = "http://api.postcodes.io/postcodes/";
-async function getArrivals(id) {
+async function fetchData (url) {
 	try {
-		const arrivalsResponse = await fetch(
-			`https://api.tfl.gov.uk/StopPoint/${id}/Arrivals`
-		);
-		if (!arrivalsResponse.ok) {
-			console.log(
-				`Error occured in request. Status code ${arrivalsResponse.status}`
-			);
-			return [];
+		const dataResponse = await fetch (url);
+		if (!dataResponse.ok) {
+			throw new Error (`Error occured in request. Status code ${dataResponse.status}`);
 		} else {
-			const arrivalsData = await arrivalsResponse.json();
-			return arrivalsData;
+			const returnData = await dataResponse.json();
+			console.log(url);
+			return returnData;
+
 		}
-	} catch (error) {
-		console.error(
-			"There has been a problem with the fetch operation getting data for a TFL stop:",
-			error
-		);
+	} catch (err) {
+		console.error(`Error in ${url}.`, err);
 	}
+
 }
 
+ 
+async function getArrivals(id) {
+
+	const arrivalsData = await fetchData (`https://api.tfl.gov.uk/StopPoint/${id}/Arrivals`);
+//	console.log(arrivalsData);
+	return arrivalsData;
+		
+}
+
+const postcodeApiUrl = "http://api.postcodes.io/postcodes/";
 async function postcodeToLatLng(postcode) {
-	try {
-		const locationConverterResponse = await fetch(
-			postcodeApiUrl + postcode
-		);
-		if (!locationConverterResponse.ok) {
-			console.log(
-				`Error occured in request. Status code ${locationConverterResponse.status}`
-			);
-			return {};
-		} else {
-			const locationData = await locationConverterResponse.json();
-			const latitude = locationData.result.latitude;
-			const longitude = locationData.result.longitude;
-			return { latitude, longitude };
-		}
-	} catch (error) {
-		console.error(
-			"There has been a problem with the fetch operation for postcode to Lat Lng:",
-			error
-		);
-	}
+	const locationData = await fetchData (`http://api.postcodes.io/postcodes/${postcode}`)
+	const latitude = locationData.result.latitude;
+	const longitude = locationData.result.longitude;
+	return { latitude, longitude };
 }
 
 async function displayArrivals(arrivals) {
@@ -66,8 +52,6 @@ function getUserInput() {
 	return readline.prompt();
 }
 
-// JP joining here!!
-
 
 async function getLocalArrivals() {
 
@@ -81,8 +65,9 @@ async function getLocalArrivals() {
     // Find StopPoints
 
 
-	const stopID = "490008660N";
-	const arrivalsData = await getArrivals(stopID);
+	//const stopID = "490008660N";
+	const stopID2 = "490008660S";
+	const arrivalsData = await getArrivals(stopID2);
 	displayArrivals(arrivalsData);
 }
 
